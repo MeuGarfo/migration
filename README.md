@@ -8,8 +8,11 @@
 ```
 $options=[
 	'dir'=>'/your-dir',
-	'mysql'=>[
-		'db'
+	'db'=>[
+		'server'=>'localhost',
+		'name'=>'test',
+		'user'=>'root',
+		'password'=>''
 	]
 ];
 $Plain2SQL=new Plain2SQL\Plain2SQL($options);
