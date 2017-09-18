@@ -4,7 +4,7 @@
 ## composer
 	composer require plain2sql/plain2sql
 	
-## table
+## plain text (the table name is the filename)
 ```
 id
 name
