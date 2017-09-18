@@ -13,7 +13,7 @@ class Plain2SQL{
     public $db;
 	function __construct($options){
 	    $this->setDir($options['dir']);
-	    $this->setDb($options['mysql']);
+	    $this->setDb($options['db']);
 	}
 	//private
 	private function setDir($dir){
