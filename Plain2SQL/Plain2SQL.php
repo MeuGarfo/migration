@@ -35,9 +35,6 @@ class Plain2SQL{
 	        'port' => 3306
 	    ]);
 	}
-	private function sql($sql){
-	    return $this->db->query($sql)->fetchAll();
-	}
 	//public
 	public function dropTables(){
 	    $tables=$this->tables();
@@ -179,7 +176,7 @@ class Plain2SQL{
 	    return ($files) ? $files : false;
 	}
 	protected function query($sql){
-	    return $this->db->sql($sql)->fetchAll();
+	    return $this->db->query($sql)->fetchAll();
 	}
 	protected function renameColumn($tableName,$oldColumnName,$createColumnName){
 	    $tableName=trim($tableName);
