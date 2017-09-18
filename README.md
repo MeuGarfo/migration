@@ -25,11 +25,12 @@ $db=[
 $p2s=new Plain2SQL\Plain2SQL($dir,$db);
 ```
 
+## dropAll
+	$p2s->dropTables();
+
 ## migrate
 	$p2s->migrate();
 
-## truncateTables
+## truncateAll
 	$p2s->truncateTables();
 
-## dropTables
-	$p2s->dropTables();

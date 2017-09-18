@@ -36,7 +36,7 @@ class Plain2SQL{
 	    ]);
 	}
 	//public
-	public function dropTables(){
+	public function dropAll(){
 	    $tables=$this->tables();
 	    foreach($tables as $table){
 	        $sql="DROP TABLE $table;";
@@ -96,7 +96,7 @@ class Plain2SQL{
 	private function seedTables(){
 	    //todo semear dados
 	}
-	public function truncateTables(){
+	public function truncateAll(){
 	    $tables=$this->tables();
 	    foreach($tables as $table){
 	        $sql="TRUNCATE $table;";
