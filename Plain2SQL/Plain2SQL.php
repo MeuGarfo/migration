@@ -178,6 +178,9 @@ class Plain2SQL{
 	    $files = array_keys($files);
 	    return ($files) ? $files : false;
 	}
+	protected function query($sql){
+	    return $this->db()->sql($sql)->fetchAll();
+	}
 	protected function renameColumn($tableName,$oldColumnName,$createColumnName){
 	    $tableName=trim($tableName);
 	    $oldColumnName=trim($oldColumnName);
