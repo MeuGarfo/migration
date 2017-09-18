@@ -2,6 +2,7 @@
 	"name" : "plain2sql/plain2sql",
 	"description" : "Plain text to SQL",
 	"minimum-stability" : "stable",
+	"license" : "MIT",
 	"require" : {
 		"catfan/medoo" : "^1.4"
 	},
