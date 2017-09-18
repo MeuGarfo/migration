@@ -1,4 +1,16 @@
 {
 	"name" : "aicoutos/plain2sql",
-	"description" : "Plain text to SQL"
+	"description" : "Plain text to SQL",
+	"minimum-stability" : "stable",
+	"require" : {
+		"catfan/medoo" : "^1.4"
+	},
+	  "autoload": {
+   "psr-0": {
+      "": "../../../model/"
+   },
+   "psr-4": {
+      "Demolidor\\": "Demolidor/"
+    }
+  },
 }
