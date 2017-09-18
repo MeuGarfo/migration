@@ -48,7 +48,7 @@ class Plain2SQL{
 	    $tables=null;
 	    foreach($tablesRAW as $key=>$value){
 	        if($this->validColumn($value)){
-	            $content=file_get_contents($dir.$value);
+	            $content=file_get_contents($this->dir.$value);
 	            $content=explode(PHP_EOL,$content);
 	            foreach ($content as $contentKey => $contentValue) {
 	                if(!$this->validColumn($contentValue)){
