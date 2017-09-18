@@ -11,7 +11,7 @@ name
 email
 ```
 	
-## use
+## config
 ```
 <?php
 require 'vendor/autoload.php';
@@ -22,5 +22,14 @@ $db=[
 	'user'=>'root',
 	'password'=>''
 ];
-$Plain2SQL=new Plain2SQL\Plain2SQL($dir,$db);
+$p2s=new Plain2SQL\Plain2SQL($dir,$db);
 ```
+
+## migrate
+	$p2s->migrate();
+
+## truncateTables
+	$p2s->truncateTables();
+
+## dropTables
+	$p2s->dropTables();
