@@ -6,6 +6,8 @@
 	
 ## use
 ```
+<?php
+require 'vendor/autoload.php';
 $dir='tables';
 $db=[
 	'server'=>'localhost',
