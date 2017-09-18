@@ -1,2 +1,2 @@
 # plain2sql
-:pencil: Plain to SQL
+:pencil: Plain text to SQL
