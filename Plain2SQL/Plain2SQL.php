@@ -17,6 +17,9 @@ class Plain2SQL{
 	}
 	//private
 	private function setDir($dir){
+	    if(!substr($dir, -1)=='/'){
+	        $dir=$dir.'/';
+	    }
 	    $this->dir=$dir;
 	}
 	private function setDb($db){
