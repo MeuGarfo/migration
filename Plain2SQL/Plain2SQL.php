@@ -44,7 +44,7 @@ class Plain2SQL{
 	    }
 	    return true;
 	}
-	public function migrate(){
+	public function migrateAll(){
 	    $tablesRAW=$this->myScanDir($this->dir);
 	    $tables=null;
 	    foreach($tablesRAW as $key=>$value){

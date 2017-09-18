@@ -28,8 +28,8 @@ $p2s=new Plain2SQL\Plain2SQL($dir,$db);
 ## dropAll
 	$p2s->dropTables();
 
-## migrate
-	$p2s->migrate();
+## migrateAll
+	$p2s->migrateAll();
 
 ## truncateAll
 	$p2s->truncateTables();
