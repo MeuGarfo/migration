@@ -6,7 +6,7 @@
 	
 ## use
 ```
-$dir='/tables';
+$dir='tables';
 $db=[
 	'server'=>'localhost',
 	'name'=>'test',
