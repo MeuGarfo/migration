@@ -38,11 +38,15 @@ class Plain2SQL{
 	//public
 	public function dropAll(){
 	    $tables=$this->tables();
-	    foreach($tables as $table){
-	        $sql="DROP TABLE $table;";
-	        $this->query($sql);
+	    if($tables){
+	        foreach($tables as $table){
+	            $sql="DROP TABLE $table;";
+	            $this->query($sql);
+	        }
+	        return true;
+	    }else{
+	        return false;
 	    }
-	    return true;
 	}
 	public function migrateAll(){
 	    $tablesRAW=$this->myScanDir($this->dir);
