@@ -11,9 +11,9 @@ use Medoo\Medoo;
 class Plain2SQL{
     public $dir;
     public $db;
-	function __construct($options){
-	    $this->setDir($options['dir']);
-	    $this->setDb($options['db']);
+	function __construct($dir,$db){
+	    $this->setDir($dir);
+	    $this->setDb($db);
 	}
 	//private
 	private function setDir($dir){

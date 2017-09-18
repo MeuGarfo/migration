@@ -6,14 +6,12 @@
 	
 ## use
 ```
-$options=[
-	'dir'=>'/your-dir',
-	'db'=>[
-		'server'=>'localhost',
-		'name'=>'test',
-		'user'=>'root',
-		'password'=>''
-	]
+$dir='/tables';
+$db=[
+	'server'=>'localhost',
+	'name'=>'test',
+	'user'=>'root',
+	'password'=>''
 ];
-$Plain2SQL=new Plain2SQL\Plain2SQL($options);
+$Plain2SQL=new Plain2SQL\Plain2SQL($dir,$db);
 ```
