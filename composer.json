@@ -1,5 +1,5 @@
 {
-	"name" : "plain2sql/plain2sqls",
+	"name" : "plain2sql/plain2sql",
 	"description" : "Plain text to SQL",
 	"minimum-stability" : "stable",
 	"require" : {
