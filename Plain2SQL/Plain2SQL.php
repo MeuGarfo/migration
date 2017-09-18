@@ -27,17 +27,72 @@ class Plain2SQL{
 	}
 	//public
 	public function dropTables(){
-	    //todo apagar tabelas
+	    $tables=$this->tables();
+	    foreach($tables as $table){
+	        $sql="DROP TABLE $table;";
+	        $this->query($sql);
+	    }
 	}
 	public function migrate(){
-	    //todo atualizar tabelas
+	    $dir='./table/';
+	    $tablesRAW=$this->myScanDir($dir);
+	    $tables=null;
+	    foreach($tablesRAW as $key=>$value){
+	        if($this->validColumn($value)){
+	            $content=file_get_contents($dir.$value);
+	            $content=explode(PHP_EOL,$content);
+	            foreach ($content as $contentKey => $contentValue) {
+	                if(!$this->validColumn($contentValue)){
+	                    unset($content[$contentKey]);
+	                }
+	            }
+	            $content=array_filter($content);
+	            $content=array_values($content);
+	            $tables[$value]=$content;
+	        }
+	    }
+	    if($this->tables()){
+	        //exclusão de tabelas
+	        foreach ($this->tables() as $key => $tableName) {
+	            if (!isset($tables[$tableName])) {
+	                $this->deleteTable($tableName);
+	            }
+	        }
+	        //exclusão de colunas
+	        foreach ($this->tables() as $keyTableInDB=>$tableName) {
+	            //le as colunas que já existe na tabelas
+	            $columnsInDB=$this->columns($tableName);
+	            //apaga as colunas que estão sobrando
+	            foreach($columnsInDB as $keyColumnsInDB=>$valueColumnInDB){
+	                if(!in_array($valueColumnInDB,$tables[$tableName])){
+	                    $this->deleteColumn($tableName,$valueColumnInDB);
+	                }
+	            }
+	        }
+	    }
+	    //criação de colunas
+	    foreach ($tables as $tableKey => $tableValues) {
+	        $tableName=$tableKey;
+	        if(!$this->tableExists($tableName)){
+	            $this->createTable($tableName);
+	        }
+	        $this->createColumn($tableName,'id');
+	        foreach($tableValues as $columnName){
+	            $this->createColumn($tableName,$columnName);
+	        }
+	    }
 	}
-	public function seedTables(){
+	private function seedTables(){
 	    //todo semear dados
 	}
 	public function truncateTables(){
-	    //todo limpar tabelas
+	    $tables=$this->tables();
+	    foreach($tables as $table){
+	        $sql="TRUNCATE $table;";
+	        $this->query($sql);
+	    }
 	}
+	//protectes
 	protected function columnExists($tableName,$columnName){
 	    $tableName=trim($tableName);
 	    $columnName=trim($columnName);
@@ -99,55 +154,6 @@ class Plain2SQL{
 	    $tableName=trim($tableName);
 	    $sql='DROP TABLE IF EXISTS '.$tableName;
 	    return $this->query($sql);
-	}
-	protected function migrate(){
-	    $dir='./table/';
-	    $tablesRAW=$this->myScanDir($dir);
-	    $tables=null;
-	    foreach($tablesRAW as $key=>$value){
-	        if($this->validColumn($value)){
-	            $content=file_get_contents($dir.$value);
-	            $content=explode(PHP_EOL,$content);
-	            foreach ($content as $contentKey => $contentValue) {
-	                if(!$this->validColumn($contentValue)){
-	                    unset($content[$contentKey]);
-	                }
-	            }
-	            $content=array_filter($content);
-	            $content=array_values($content);
-	            $tables[$value]=$content;
-	        }
-	    }
-	    if($this->tables()){
-	        //exclusão de tabelas
-	        foreach ($this->tables() as $key => $tableName) {
-	            if (!isset($tables[$tableName])) {
-	                $this->deleteTable($tableName);
-	            }
-	        }
-	        //exclusão de colunas
-	        foreach ($this->tables() as $keyTableInDB=>$tableName) {
-	            //le as colunas que já existe na tabelas
-	            $columnsInDB=$this->columns($tableName);
-	            //apaga as colunas que estão sobrando
-	            foreach($columnsInDB as $keyColumnsInDB=>$valueColumnInDB){
-	                if(!in_array($valueColumnInDB,$tables[$tableName])){
-	                    $this->deleteColumn($tableName,$valueColumnInDB);
-	                }
-	            }
-	        }
-	    }
-	    //criação de colunas
-	    foreach ($tables as $tableKey => $tableValues) {
-	        $tableName=$tableKey;
-	        if(!$this->tableExists($tableName)){
-	            $this->createTable($tableName);
-	        }
-	        $this->createColumn($tableName,'id');
-	        foreach($tableValues as $columnName){
-	            $this->createColumn($tableName,$columnName);
-	        }
-	    }
 	}
 	protected function myScanDir($dir) {
 	    $ignored = array('.', '..', '.svn', '.htaccess');
