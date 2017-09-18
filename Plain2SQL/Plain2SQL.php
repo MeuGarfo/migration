@@ -42,6 +42,7 @@ class Plain2SQL{
 	        $sql="DROP TABLE $table;";
 	        $this->query($sql);
 	    }
+	    return true;
 	}
 	public function migrate(){
 	    $tablesRAW=$this->myScanDir($this->dir);
@@ -101,6 +102,7 @@ class Plain2SQL{
 	        $sql="TRUNCATE $table;";
 	        $this->query($sql);
 	    }
+	    return true;
 	}
 	//protectes
 	protected function columnExists($tableName,$columnName){
