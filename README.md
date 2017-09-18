@@ -4,6 +4,13 @@
 ## composer
 	composer require plain2sql/plain2sql
 	
+## table
+```
+id
+name
+email
+```
+	
 ## use
 ```
 <?php
