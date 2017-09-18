@@ -2,7 +2,7 @@
 :pencil: Plain text to SQL
 
 ## composer
-	composer require aicoutos/plain2sql
+	composer require plain2sql/plain2sql
 	
 ## use
 ```
