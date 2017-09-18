@@ -11,8 +11,9 @@ use Medoo\Medoo;
 class Plain2SQL{
     public $dir;
     public $db;
-	function __construct($dir){
-        //todo definir diretório
+	function __construct($options){
+        $this->db=new Medoo($options['db']);
+        $this->dir=$options['dir'];
 	}
 	function dropTables(){
 	    //todo apagar tabelas
@@ -22,5 +23,8 @@ class Plain2SQL{
 	}
 	function truncateTables(){
 	    //todo limpar tabelas
+	}
+	private function sql($sql){
+	    return $this->db->query($sql)->fetchAll();
 	}
 }
