@@ -90,6 +90,7 @@ class Plain2SQL{
 	            $this->createColumn($tableName,$columnName);
 	        }
 	    }
+	    return true;
 	}
 	private function seedTables(){
 	    //todo semear dados
