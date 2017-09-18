@@ -20,7 +20,17 @@ class Plain2SQL{
 	    $this->dir=$dir;
 	}
 	private function setDb($db){
-	    $this->db=$db;
+	    $this->db = new Medoo([
+	        // required
+	        'database_type' => 'mysql',
+	        'database_name' => $db['name'],
+	        'server' => $db['server'],
+	        'username' => $db['user'],
+	        'password' => $db['password'],	        
+	        // [optional]
+	        'charset' => 'utf8',
+	        'port' => 3306
+	    ]);
 	}
 	private function sql($sql){
 	    return $this->db->query($sql)->fetchAll();
