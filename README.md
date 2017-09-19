@@ -4,16 +4,6 @@
 ## Composer
 	composer require plain2sql/plain2sql
 	
-## tables/user (o nome do arquivo é o nome da tabela)
-```
-id
-name
-email
-passoword
-token
-token_expiration
-```
-	
 ## Instalação
 ```
 <?php
@@ -26,6 +16,18 @@ $db=[
 	'password'=>''
 ];
 $p2s=new Plain2SQL\Plain2SQL($dir,$db);
+```
+## Exemplo de tabela
+O nome do arquivo é o nome da tabela
+
+### tables/user
+```
+id
+name
+email
+passoword
+token
+token_expiration
 ```
 
 ## Apagar todas as tabelas (dropAll)
