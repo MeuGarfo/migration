@@ -1,17 +1,20 @@
 # plain2sql
-:pencil: Plain text to SQL
+:pencil: Converte arquivos de texto para tabelas SQL
 
-## composer
+## Composer
 	composer require plain2sql/plain2sql
 	
-## plain text (the table name is the filename)
+## tables/user (o nome do arquivo é o nome da tabela)
 ```
 id
 name
 email
+passoword
+token
+token_expiration
 ```
-
-## config
+	
+## Instalação
 ```
 <?php
 require 'vendor/autoload.php';
@@ -25,12 +28,11 @@ $db=[
 $p2s=new Plain2SQL\Plain2SQL($dir,$db);
 ```
 
-## dropAll
+## Apagar todas as tabelas (dropAll)
 	$p2s->dropTables();
 
-## migrateAll
+## Migrar todas as tabelas (migrateAll)
 	$p2s->migrateAll();
 
-## truncateAll
+## Esvaziar todas as tabelas (truncateAll)
 	$p2s->truncateTables();
-
