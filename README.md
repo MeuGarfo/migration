@@ -32,10 +32,10 @@ token_expiration
 ```
 
 ## Apagar todas as tabelas
-	$p2s->dropAll();
+	$Plain2SQL->dropAll();
 
 ## Migrar todas as tabelas
-	$p2s->migrateAll();
+	$Pain2SQL->migrateAll();
 
 ## Esvaziar todas as tabelas
-	$p2s->truncateAll();
+	$Plain2SQL->truncateAll();
