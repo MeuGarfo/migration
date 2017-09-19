@@ -15,7 +15,8 @@ $db=[
 	'user'=>'root',
 	'password'=>''
 ];
-$p2s=new Plain2SQL\Plain2SQL($dir,$db);
+$Plain2SQL=new Plain2SQL\Plain2SQL($dir,$db);
+$Plain2SQL->migrate();
 ```
 ## Exemplo de tabela
 O nome do arquivo é o nome da tabela
