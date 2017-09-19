@@ -31,11 +31,11 @@ token
 token_expiration
 ```
 
-## Apagar todas as tabelas (dropAll)
-	$p2s->dropTables();
+## Apagar todas as tabelas
+	$p2s->dropAll();
 
-## Migrar todas as tabelas (migrateAll)
+## Migrar todas as tabelas
 	$p2s->migrateAll();
 
-## Esvaziar todas as tabelas (truncateAll)
-	$p2s->truncateTables();
+## Esvaziar todas as tabelas
+	$p2s->truncateAll();
