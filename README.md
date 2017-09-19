@@ -10,7 +10,7 @@ id
 name
 email
 ```
-	
+
 ## config
 ```
 <?php
