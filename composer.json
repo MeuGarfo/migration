@@ -1,6 +1,6 @@
 {
     "name" : "basic/migration",
-    "description" : "Plain text to SQL",
+    "description" : "Converte arquivos de texto para tabelas SQL ",
     "minimum-stability" : "stable",
     "license" : "MIT",
     "require" : {
