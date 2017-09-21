@@ -1,14 +1,14 @@
 {
-	"name" : "basic/migration",
-	"description" : "Plain text to SQL",
-	"minimum-stability" : "stable",
-	"license" : "MIT",
-	"require" : {
-		"catfan/medoo" : "^1.4"
-	},
+    "name" : "basic/migration",
+    "description" : "Plain text to SQL",
+    "minimum-stability" : "stable",
+    "license" : "MIT",
+    "require" : {
+        "catfan/medoo" : "^1.4"
+    },
     "autoload" : {
-		"psr-4" : {
-			"Basic\\" : "/src"
-		}
-	}
+        "psr-4" : {
+            "Basic\\" : "/src"
+        }
+    }
 }
