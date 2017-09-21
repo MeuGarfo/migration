@@ -4,11 +4,11 @@
  * Date: 18/set/2017
  */
 
-namespace Plain2SQL;
+namespace Basic;
 
 use Medoo\Medoo;
 
-class Plain2SQL{
+class Migration{
     public $dir;
     public $db;
 	function __construct($dir,$db){
@@ -29,7 +29,7 @@ class Plain2SQL{
 	        'database_name' => $db['name'],
 	        'server' => $db['server'],
 	        'username' => $db['user'],
-	        'password' => $db['password'],	        
+	        'password' => $db['password'],
 	        // [optional]
 	        'charset' => 'utf8',
 	        'port' => 3306
