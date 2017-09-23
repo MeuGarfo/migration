@@ -1,5 +1,5 @@
 # basicmigration
-:pencil: Converte arquivos de texto para tabelas SQL
+:pencil: Sistema básico de migration
 
 ## Composer
 	composer require basic/migration
