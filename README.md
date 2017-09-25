@@ -1,4 +1,4 @@
-# basicmigration
+# migration
 :pencil: Sistema básico de migration
 
 ## Composer
