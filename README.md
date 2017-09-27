@@ -8,20 +8,19 @@
 ```
 <?php
 require 'vendor/autoload.php';
-$dir='tables';
-$db=[
+$dbConfig=[
 	'server'=>'localhost',
 	'name'=>'test',
 	'user'=>'root',
 	'password'=>''
 ];
-$BasicMigration=new Basic\Migration($dir,$db);
+$BasicMigration=new Basic\Migration($dbConfig);
 $BasicMigration->migrate();
 ```
 ## Exemplo de tabela
-O nome do arquivo é o nome da tabela
+O nome do arquivo de texto é o nome da tabela. As tabelas devem ficar armazenadas no diretório /table um nivel acima do /vendor.
 
-### tables/user
+### table/user
 ```
 id
 name
