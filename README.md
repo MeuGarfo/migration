@@ -25,16 +25,16 @@ O nome do arquivo de texto é o nome da tabela. As tabelas devem ficar armazenad
 id
 name
 email
-passoword
+password
 token
 token_expiration
 ```
 
 ## Apagar todas as tabelas
-	$BasicMigration->dropAll();
+	$BasicMigration->drop_all();
 
 ## Migrar todas as tabelas
-	$Pain2SQL->migrateAll();
+	$Pain2SQL->migrate_all();
 
 ## Esvaziar todas as tabelas
-	$BasicMigration->truncateAll();
+	$BasicMigration->truncate_all();

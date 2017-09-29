@@ -13,17 +13,17 @@ class Migration{
     public $db;
     function __construct($db){
         $dir=ROOT.'table';
-        $this->setDir($dir);
-        $this->setDb($db);
+        $this->set_dir($dir);
+        $this->set_db($db);
     }
     //private
-    private function setDir($dir){
+    private function set_dir($dir){
         if(substr($dir, -1)<>'/'){
             $dir=$dir.'/';
         }
         $this->dir=$dir;
     }
-    private function setDb($db){
+    private function set_db($db){
         $this->db = new Medoo([
             // required
             'database_type' => 'mysql',
@@ -37,7 +37,7 @@ class Migration{
         ]);
     }
     //public
-    public function dropAll(){
+    public function drop_all(){
         $tables=$this->tables();
         if($tables){
             foreach($tables as $table){
@@ -49,15 +49,15 @@ class Migration{
             return false;
         }
     }
-    public function migrateAll(){
-        $tablesRAW=$this->myScanDir($this->dir);
+    public function migrate_all(){
+        $tablesRAW=$this->my_scan_dir($this->dir);
         $tables=null;
         foreach($tablesRAW as $key=>$value){
-            if($this->validColumn($value)){
+            if($this->valid_column($value)){
                 $content=file_get_contents($this->dir.$value);
                 $content=explode(PHP_EOL,$content);
                 foreach ($content as $contentKey => $contentValue) {
-                    if(!$this->validColumn($contentValue)){
+                    if(!$this->valid_column($contentValue)){
                         unset($content[$contentKey]);
                     }
                 }
@@ -70,7 +70,7 @@ class Migration{
             //exclusão de tabelas
             foreach ($this->tables() as $key => $tableName) {
                 if (!isset($tables[$tableName])) {
-                    $this->deleteTable($tableName);
+                    $this->delete_table($tableName);
                 }
             }
             //exclusão de colunas
@@ -80,7 +80,7 @@ class Migration{
                 //apaga as colunas que estão sobrando
                 foreach($columnsInDB as $keyColumnsInDB=>$valueColumnInDB){
                     if(!in_array($valueColumnInDB,$tables[$tableName])){
-                        $this->deleteColumn($tableName,$valueColumnInDB);
+                        $this->delete_column($tableName,$valueColumnInDB);
                     }
                 }
             }
@@ -88,20 +88,20 @@ class Migration{
         //criação de colunas
         foreach ($tables as $tableKey => $tableValues) {
             $tableName=$tableKey;
-            if(!$this->tableExists($tableName)){
-                $this->createTable($tableName);
+            if(!$this->table_exists($tableName)){
+                $this->create_table($tableName);
             }
-            $this->createColumn($tableName,'id');
+            $this->create_column($tableName,'id');
             foreach($tableValues as $columnName){
-                $this->createColumn($tableName,$columnName);
+                $this->create_column($tableName,$columnName);
             }
         }
         return true;
     }
-    private function seedTables(){
+    private function seed_tables(){
         //todo semear dados
     }
-    public function truncateAll(){
+    public function truncate_all(){
         $tables=$this->tables();
         foreach($tables as $table){
             $sql="TRUNCATE $table;";
@@ -110,7 +110,7 @@ class Migration{
         return true;
     }
     //protectes
-    protected function columnExists($tableName,$columnName){
+    protected function column_exists($tableName,$columnName){
         $tableName=trim($tableName);
         $columnName=trim($columnName);
         $columns=$this->columns($tableName);
@@ -122,7 +122,7 @@ class Migration{
     }
     protected function columns($tableName){
         $tableName=trim($tableName);
-        if(!$this->tableExists($tableName)){
+        if(!$this->table_exists($tableName)){
             return false;
         }
         $sql='SHOW COLUMNS FROM '.$tableName;
@@ -137,10 +137,10 @@ class Migration{
             return false;
         }
     }
-    protected function createColumn($tableName,$columnName){
+    protected function create_column($tableName,$columnName){
         $tableName=trim($tableName);
         $columnName=trim($columnName);
-        if(!$this->columnExists($tableName,$columnName)){
+        if(!$this->column_exists($tableName,$columnName)){
             $sql='ALTER TABLE `'.$tableName.'` ADD ';
             if($columnName=='id'){
                 $sql=$sql.'`'.$columnName.'` serial;';
@@ -148,18 +148,18 @@ class Migration{
                 // ALTER TABLE `user` ADD `email` LONGTEXT NOT NULL ;
                 $sql=$sql.'`'.$columnName.'` LONGTEXT;';
             }
-            if(!$this->columnExists($tableName,$columnName)){
+            if(!$this->column_exists($tableName,$columnName)){
                 return $this->query($sql);
             }
         }
     }
-    protected function createTable($tableName){
+    protected function create_table($tableName){
         $tableName=trim($tableName);
         $sql='CREATE TABLE IF NOT EXISTS `'.$tableName.'`(id serial) ENGINE=INNODB;';
         $return=$this->query($sql);
         return $return;
     }
-    protected function deleteColumn($tableName,$columnName){
+    protected function delete_column($tableName,$columnName){
         if($columnName!='id'){
             $tableName=trim($tableName);
             $columnName=trim($columnName);
@@ -167,12 +167,12 @@ class Migration{
             return $this->query($sql);
         }
     }
-    protected function deleteTable($tableName){
+    protected function delete_table($tableName){
         $tableName=trim($tableName);
         $sql='DROP TABLE IF EXISTS '.$tableName;
         return $this->query($sql);
     }
-    protected function myScanDir($dir) {
+    protected function my_scan_dir($dir) {
         $ignored = array('.', '..', '.svn', '.htaccess');
         $files = array();
         foreach (scandir($dir) as $file) {
@@ -186,16 +186,16 @@ class Migration{
     protected function query($sql){
         return $this->db->query($sql)->fetchAll();
     }
-    protected function renameColumn($tableName,$oldColumnName,$createColumnName){
+    protected function rename_column($tableName,$oldColumnName,$create_columnName){
         $tableName=trim($tableName);
         $oldColumnName=trim($oldColumnName);
-        $createColumnName=trim($createColumnName);
-        if(!$this->tableExists($tableName)){
+        $create_columnName=trim($create_columnName);
+        if(!$this->table_exists($tableName)){
             return false;
         }
-        if($this->columnExists($tableName,$oldColumnName)){
+        if($this->column_exists($tableName,$oldColumnName)){
             $sql='ALTER TABLE `'.$tableName.'` CHANGE ';
-            $sql=$sql.'`'.$oldColumnName.'` `'.$createColumnName.'` longtext';
+            $sql=$sql.'`'.$oldColumnName.'` `'.$create_columnName.'` longtext';
             return $this->query($sql);
         }else{
             return false;
@@ -214,7 +214,7 @@ class Migration{
             return false;
         }
     }
-    protected function tableExists($tableName){
+    protected function table_exists($tableName){
         $tableName=trim($tableName);
         $tables=$this->tables();
         if(@in_array($tableName, $tables)){
@@ -223,7 +223,7 @@ class Migration{
             return false;
         }
     }
-    protected function validColumn($columnName){
+    protected function valid_column($columnName){
         $columnName=trim($columnName);
         $allowed = array("_");
         if (ctype_alpha(str_replace($allowed, '', $columnName))){
