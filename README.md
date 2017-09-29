@@ -34,7 +34,7 @@ token_expiration
 	$BasicMigration->drop_all();
 
 ## Migrar todas as tabelas
-	$Pain2SQL->migrate_all();
+	$BasicMigration->migrate_all();
 
 ## Esvaziar todas as tabelas
 	$BasicMigration->truncate_all();
