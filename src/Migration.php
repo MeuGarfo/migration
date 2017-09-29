@@ -9,21 +9,8 @@ namespace Basic;
 use Medoo\Medoo;
 
 class Migration{
-    public $dir;
     public $db;
     function __construct($db){
-        $dir=ROOT.'table';
-        $this->set_dir($dir);
-        $this->set_db($db);
-    }
-    //private
-    private function set_dir($dir){
-        if(substr($dir, -1)<>'/'){
-            $dir=$dir.'/';
-        }
-        $this->dir=$dir;
-    }
-    private function set_db($db){
         $this->db = new Medoo([
             // required
             'database_type' => 'mysql',
@@ -36,7 +23,6 @@ class Migration{
             'port' => 3306
         ]);
     }
-    //public
     public function drop_all(){
         $tables=$this->tables();
         if($tables){
@@ -50,11 +36,12 @@ class Migration{
         }
     }
     public function migrate_all(){
-        $tablesRAW=$this->my_scan_dir($this->dir);
+        $dir=ROOT.'table/';
+        $tablesRAW=$this->my_scan_dir($dir);
         $tables=null;
         foreach($tablesRAW as $key=>$value){
             if($this->valid_column($value)){
-                $content=file_get_contents($this->dir.$value);
+                $content=file_get_contents($dir.$value);
                 $content=explode(PHP_EOL,$content);
                 foreach ($content as $contentKey => $contentValue) {
                     if(!$this->valid_column($contentValue)){
@@ -177,7 +164,7 @@ class Migration{
         $files = array();
         foreach (scandir($dir) as $file) {
             if (in_array($file, $ignored)) continue;
-            $files[$file] = filemtime($dir . '/' . $file);
+            $files[$file] = filemtime($dir.$file);
         }
         arsort($files);
         $files = array_keys($files);
