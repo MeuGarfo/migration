@@ -4,7 +4,7 @@
     "minimum-stability" : "stable",
     "license" : "MIT",
     "require" : {
-        "catfan/medoo" : "^1.4"
+        "catfan/medoo" : "v1.4.5"
     },
     "autoload" : {
         "psr-4" : {
