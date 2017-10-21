@@ -9,10 +9,10 @@
 <?php
 require 'vendor/autoload.php';
 $dbConfig=[
-	'server'=>'localhost',
-	'name'=>'test',
-	'user'=>'root',
-	'password'=>''
+	'db_server'=>'localhost',
+	'db_name'=>'test',
+	'db_user'=>'root',
+	'db_password'=>''
 ];
 $BasicMigration=new Basic\Migration($dbConfig);
 $BasicMigration->migrate();
