@@ -141,7 +141,7 @@ class Migration
     * @param  string $tableName Nome da tabela
     * @return mixed             Lista de colunas
     */
-    public function columns(string $tableName):mixed
+    public function columns(string $tableName)
     {
         $tableName=trim($tableName);
         if (!$this->tableExists($tableName)) {
@@ -165,7 +165,7 @@ class Migration
     * @param  string $columnName Nome da coluna
     * @return mixed              Retorna true ou false
     */
-    public function createColumn(string $tableName, string $columnName):mixed
+    public function createColumn(string $tableName, string $columnName)
     {
         $tableName=trim($tableName);
         $columnName=trim($columnName);
@@ -244,7 +244,7 @@ class Migration
     * @param  string $sql Código SQL RAW
     * @return mixed       Resposta RAW
     */
-    public function query(string $sql):mixed
+    public function query(string $sql)
     {
         return $this->db->query($sql)->fetchAll();
     }
