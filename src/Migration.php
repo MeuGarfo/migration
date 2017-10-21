@@ -38,7 +38,7 @@ class Migration
     * Apaga todas as tabelas
     * @return bool Retorna true ou false
     */
-    public function dropAll():bool
+    public function dropAll()
     {
         $tables=$this->tables();
         if ($tables) {
@@ -55,7 +55,7 @@ class Migration
     * Migra todas as tabelas
     * @return bool Retorna true
     */
-    public function migrateAll():bool
+    public function migrateAll()
     {
         $dir=ROOT.'table/';
         $tablesRAW=$this->myScanDir($dir);
@@ -110,7 +110,7 @@ class Migration
     * Apagar os dados de todas as tabelas
     * @return bool Retorna true
     */
-    public function truncateAll():bool
+    public function truncateAll()
     {
         $tables=$this->tables();
         foreach ($tables as $table) {
@@ -125,7 +125,7 @@ class Migration
     * @param  string $columnName Nome da coluna
     * @return bool               Retorna true ou false
     */
-    public function columnExists(string $tableName, string $columnName):bool
+    public function columnExists(string $tableName, string $columnName)
     {
         $tableName=trim($tableName);
         $columnName=trim($columnName);
@@ -187,7 +187,7 @@ class Migration
     * @param  string $tableName Nome da tabela
     * @return bool              Retorna true ou false
     */
-    public function createTable(string $tableName):bool
+    public function createTable(string $tableName)
     {
         $tableName=trim($tableName);
         $sql='CREATE TABLE IF NOT EXISTS `'.$tableName.'`(id serial) ENGINE=INNODB;';
@@ -200,7 +200,7 @@ class Migration
     * @param  string $columnName Nome da coluna
     * @return bool               Retorna true ou false
     */
-    public function deleteColumn(string $tableName, string $columnName):bool
+    public function deleteColumn(string $tableName, string $columnName)
     {
         if ($columnName!='id') {
             $tableName=trim($tableName);
@@ -225,7 +225,7 @@ class Migration
     * @param  string $dir Diretório
     * @return array       Lista de arquivos
     */
-    public function myScanDir(string $dir):array
+    public function myScanDir(string $dir)
     {
         $ignored = array('.', '..', '.svn', '.htaccess');
         $files = array();
@@ -255,7 +255,7 @@ class Migration
     * @param  string $create_columnName Novo nome da coluna
     * @return bool                      Retorna true ou false
     */
-    public function renameColumn(string $tableName, string $oldColumnName, string $create_columnName):bool
+    public function renameColumn(string $tableName, string $oldColumnName, string $create_columnName)
     {
         $tableName=trim($tableName);
         $oldColumnName=trim($oldColumnName);
@@ -275,7 +275,7 @@ class Migration
     * Lista de tabelas
     * @return array Lista de tabelas
     */
-    public function tables():array
+    public function tables()
     {
         $sql='SHOW TABLES';
         $result=$this->query($sql);
@@ -294,7 +294,7 @@ class Migration
     * @param  string $tableName Nome da tabela
     * @return bool              True ou false
     */
-    public function tableExists(string $tableName):bool
+    public function tableExists(string $tableName)
     {
         $tableName=trim($tableName);
         $tables=$this->tables();
@@ -309,7 +309,7 @@ class Migration
     * @param  string $columnName Nome da coluna
     * @return string             Retorna o nome formatado ou false
     */
-    public function validColumn(string $columnName):string
+    public function validColumn(string $columnName)
     {
         $columnName=trim($columnName);
         $allowed = array("_");
