@@ -31,10 +31,10 @@ token_expiration
 ```
 
 ## Apagar todas as tabelas
-	$BasicMigration->drop_all();
+	$BasicMigration->dropAll();
 
 ## Migrar todas as tabelas
-	$BasicMigration->migrate_all();
+	$BasicMigration->migrateAll();
 
 ## Esvaziar todas as tabelas
-	$BasicMigration->truncate_all();
+	$BasicMigration->truncateAll();
