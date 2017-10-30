@@ -18,7 +18,7 @@ $BasicMigration=new Basic\Migration($dbConfig);
 $BasicMigration->migrate();
 ```
 ## Exemplo de tabela
-O nome do arquivo de texto é o nome da tabela. As tabelas devem ficar armazenadas no diretório /table um nivel acima do /vendor.
+O nome do arquivo de texto é o nome da tabela. As tabelas devem ficar armazenadas no diretório /table um nivel acima do diretório /vendor.
 
 ### table/user
 ```
