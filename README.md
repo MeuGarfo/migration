@@ -14,8 +14,7 @@ $dbConfig=[
 	'db_user'=>'root',
 	'db_password'=>''
 ];
-$BasicMigration=new Basic\Migration($dbConfig);
-$BasicMigration->migrate();
+$Migration=new Basic\Migration($dbConfig);
 ```
 ## Exemplo de tabela
 O nome do arquivo de texto é o nome da tabela. As tabelas devem ficar armazenadas no diretório /table um nivel acima do diretório /vendor.
@@ -31,10 +30,10 @@ token_expiration
 ```
 
 ## Apagar todas as tabelas
-	$BasicMigration->dropAll();
+	$Migration->dropAll();
 
 ## Migrar todas as tabelas
-	$BasicMigration->migrateAll();
+	$Migration->migrateAll();
 
 ## Esvaziar todas as tabelas
-	$BasicMigration->truncateAll();
+	$Migration->truncateAll();
