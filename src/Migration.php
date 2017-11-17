@@ -57,7 +57,12 @@ class Migration
     */
     public function migrateAll()
     {
-        $dir=ROOT.'table/';
+        $filename=ROOT.'app/model';
+        if (file_exists($filename)) {
+            $dir=$filename;
+        } else {
+            $dir=ROOT.'table/';
+        }
         $tablesRAW=$this->myScanDir($dir);
         $tables=null;
         foreach ($tablesRAW as $key=>$value) {
