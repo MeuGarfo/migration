@@ -214,7 +214,7 @@ class Migration
     * @param  string $tableName Nome da tabela
     * @return bool              Retorna true ou false
     */
-    public function deleteTable(string $tableName):bool
+    public function deleteTable(string $tableName)
     {
         $tableName=trim($tableName);
         $sql='DROP TABLE IF EXISTS '.$tableName;
