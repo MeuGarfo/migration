@@ -74,7 +74,7 @@ class Migration
                 $tables[$value]=$content;
             }
         }
-        if ($this->tables()) {
+        if (is_array($this->tables())) {
             //exclusão de tabelas
             foreach ($this->tables() as $key => $tableName) {
                 if (!isset($tables[$tableName])) {
