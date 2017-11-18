@@ -57,7 +57,7 @@ class Migration
     */
     public function migrateAll()
     {
-        $filename=ROOT.'app/model';
+        $filename=ROOT.'app/model/';
         if (file_exists($filename)) {
             $dir=$filename;
         } else {
