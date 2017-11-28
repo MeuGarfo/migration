@@ -1,43 +1,19 @@
 <?php
-/**
-* Basic
-* Micro framework em PHP
-*/
-
 namespace Basic;
 
 use Medoo\Medoo;
 
-/**
-* Classe Migration
-*/
 class Migration
 {
-    /**
-    * Instância da classe Medoo
-    * @var object
-    */
     public $db;
-    /**
-    * Configurações SQL
-    * @param array $db Dados do servidor SQL
-    */
-    public function __construct(array $db)
+    public function __construct($db=null)
     {
-        $this->db = new Medoo([
-            'database_type' => 'mysql',
-            'database_name' => $db['db_name'],
-            'server' => $db['db_server'],
-            'username' => $db['db_user'],
-            'password' => $db['db_password'],
-            'charset' => 'utf8',
-            'port' => 3306
-        ]);
+        if (is_null($db)) {
+            die('medoo instance injection fail');
+        } else {
+            $this->db = $db;
+        }
     }
-    /**
-    * Apaga todas as tabelas
-    * @return bool Retorna true ou false
-    */
     public function dropAll()
     {
         $tables=$this->tables();
@@ -51,10 +27,6 @@ class Migration
             return false;
         }
     }
-    /**
-    * Migra todas as tabelas
-    * @return bool Retorna true
-    */
     public function migrateAll()
     {
         $filename=ROOT.'app/model/';
@@ -111,10 +83,6 @@ class Migration
         }
         return true;
     }
-    /**
-    * Apagar os dados de todas as tabelas
-    * @return bool Retorna true
-    */
     public function truncateAll()
     {
         $tables=$this->tables();
@@ -124,12 +92,6 @@ class Migration
         }
         return true;
     }
-    /**
-    * Verifica se a coluna existe
-    * @param  string $tableName  Nome da tabela
-    * @param  string $columnName Nome da coluna
-    * @return bool               Retorna true ou false
-    */
     public function columnExists(string $tableName, string $columnName)
     {
         $tableName=trim($tableName);
@@ -141,11 +103,6 @@ class Migration
             return false;
         }
     }
-    /**
-    * Lista de colunas
-    * @param  string $tableName Nome da tabela
-    * @return mixed             Lista de colunas
-    */
     public function columns(string $tableName)
     {
         $tableName=trim($tableName);
@@ -164,12 +121,6 @@ class Migration
             return false;
         }
     }
-    /**
-    * Cria coluna
-    * @param  string $tableName  Nome da tabela
-    * @param  string $columnName Nome da coluna
-    * @return mixed              Retorna true ou false
-    */
     public function createColumn(string $tableName, string $columnName)
     {
         $tableName=trim($tableName);
@@ -187,11 +138,6 @@ class Migration
             }
         }
     }
-    /**
-    * Criar tabela
-    * @param  string $tableName Nome da tabela
-    * @return bool              Retorna true ou false
-    */
     public function createTable(string $tableName)
     {
         $tableName=trim($tableName);
@@ -199,12 +145,6 @@ class Migration
         $return=$this->query($sql);
         return $return;
     }
-    /**
-    * Apagar coluna
-    * @param  string $tableName  Nome da tabela
-    * @param  string $columnName Nome da coluna
-    * @return bool               Retorna true ou false
-    */
     public function deleteColumn(string $tableName, string $columnName)
     {
         if ($columnName!='id') {
@@ -214,22 +154,12 @@ class Migration
             return $this->query($sql);
         }
     }
-    /**
-    * Apagar tabela
-    * @param  string $tableName Nome da tabela
-    * @return bool              Retorna true ou false
-    */
     public function deleteTable(string $tableName)
     {
         $tableName=trim($tableName);
         $sql='DROP TABLE IF EXISTS '.$tableName;
         return $this->query($sql);
     }
-    /**
-    * Lista de arquivos
-    * @param  string $dir Diretório
-    * @return array       Lista de arquivos
-    */
     public function myScanDir(string $dir)
     {
         $ignored = array('.', '..', '.svn', '.htaccess');
@@ -244,22 +174,10 @@ class Migration
         $files = array_keys($files);
         return ($files) ? $files : false;
     }
-    /**
-    * Requisição SQL RAW
-    * @param  string $sql Código SQL RAW
-    * @return mixed       Resposta RAW
-    */
     public function query(string $sql)
     {
         return $this->db->query($sql)->fetchAll();
     }
-    /**
-    * Renomear coluna
-    * @param  string $tableName         Nome da tabela
-    * @param  string $oldColumnName     Nome antigo da coluna
-    * @param  string $create_columnName Novo nome da coluna
-    * @return bool                      Retorna true ou false
-    */
     public function renameColumn(string $tableName, string $oldColumnName, string $create_columnName)
     {
         $tableName=trim($tableName);
@@ -276,10 +194,6 @@ class Migration
             return false;
         }
     }
-    /**
-    * Lista de tabelas
-    * @return array Lista de tabelas
-    */
     public function tables()
     {
         $sql='SHOW TABLES';
@@ -294,11 +208,6 @@ class Migration
             return false;
         }
     }
-    /**
-    * Verifica se a tabela existe
-    * @param  string $tableName Nome da tabela
-    * @return bool              True ou false
-    */
     public function tableExists(string $tableName)
     {
         $tableName=trim($tableName);
@@ -309,11 +218,6 @@ class Migration
             return false;
         }
     }
-    /**
-    * Valida o nome da coluna
-    * @param  string $columnName Nome da coluna
-    * @return string             Retorna o nome formatado ou false
-    */
     public function validColumn(string $columnName)
     {
         $columnName=trim($columnName);
