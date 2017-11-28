@@ -5,16 +5,12 @@
 	composer require basic/migration
 
 ## Instalação
+O Migration funciona por injeção de dependência. Para tanto é necessário ter o [Medoo](http://medoo.in/) instalado e configurado.
 ```
 <?php
 require 'vendor/autoload.php';
-$dbConfig=[
-	'db_server'=>'localhost',
-	'db_name'=>'test',
-	'db_user'=>'root',
-	'db_password'=>''
-];
-$Migration=new Basic\Migration($dbConfig);
+//$db=Instância do Medoo
+$Migration=new Basic\Migration($db);
 ```
 ## Exemplo de tabela
 O nome do arquivo de texto é o nome da tabela. As tabelas devem ficar armazenadas no diretório /table um nivel acima do diretório /vendor.
