@@ -6,7 +6,7 @@ use Medoo\Medoo;
 class Migration
 {
     public $db;
-    public function __construct($db=null)
+    public function __construct($db = null)
     {
         if (is_null($db)) {
             die('medoo instance injection fail');
@@ -37,7 +37,7 @@ class Migration
         }
         $tablesRAW=$this->myScanDir($dir);
         $tables=null;
-        foreach ($tablesRAW as $key=>$value) {
+        foreach ($tablesRAW as $key => $value) {
             if ($this->validColumn($value)) {
                 $content=file_get_contents($dir.$value);
                 $content=explode(PHP_EOL, $content);
@@ -59,11 +59,11 @@ class Migration
                 }
             }
             //exclusão de colunas
-            foreach ($this->tables() as $keyTableInDB=>$tableName) {
+            foreach ($this->tables() as $keyTableInDB => $tableName) {
                 //le as colunas que já existe na tabelas
                 $columnsInDB=$this->columns($tableName);
                 //apaga as colunas que estão sobrando
-                foreach ($columnsInDB as $keyColumnsInDB=>$valueColumnInDB) {
+                foreach ($columnsInDB as $keyColumnsInDB => $valueColumnInDB) {
                     if (!in_array($valueColumnInDB, $tables[$tableName])) {
                         $this->deleteColumn($tableName, $valueColumnInDB);
                     }
@@ -113,7 +113,7 @@ class Migration
         $result=$this->query($sql);
         if (is_array($result)) {
             $array=null;
-            foreach ($result as $key=>$value) {
+            foreach ($result as $key => $value) {
                 $array[]=$value['Field'];
             }
             return $array;
@@ -200,7 +200,7 @@ class Migration
         $result=$this->query($sql);
         if (is_array($result)) {
             $array=null;
-            foreach ($result as $key=>$value) {
+            foreach ($result as $key => $value) {
                 $array[]=array_values($value)[0];
             }
             return $array;
