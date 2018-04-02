@@ -27,9 +27,11 @@ class Migration
             return false;
         }
     }
-    public function migrateAll()
+    public function migrateAll($filename=false)
     {
-        $filename=ROOT.'app/model/';
+        if(!$filename){
+            $filename=ROOT.'app/model/';
+        }
         if (file_exists($filename)) {
             $dir=$filename;
         } else {
