@@ -16,7 +16,7 @@ class Migration
     }
     public function dropAll()
     {
-        $tables=$this->tables();
+        $tables=$this->tabelasNoBanco();
         if ($tables) {
             foreach ($tables as $table) {
                 $sql="DROP TABLE $table;";
@@ -27,49 +27,54 @@ class Migration
             return false;
         }
     }
-    public function migrateAll($filename=false)
+    public function migrateAll($dir=false)
     {
-        if(!$filename){
-            $filename=ROOT.'app/model/';
+        $defaultDir=ROOT.'table/';
+        if(!$dir){
+            $dir=$defadefaultDir;
         }
-        //verifica se a pasta das tabelas existe
-        if (file_exists($filename)) {
-            $dir=$filename;
+        if (file_exists($dir)) {
+            $dir=$dir;
         } else {
-            $dir=ROOT.'table/';
+            $dir=$defadefaultDir;
         }
-        $tablesRAW=$this->myScanDir($dir);
+        //le os nomes das tabelas
+        $listaDeTabelas=$this->myScanDir($dir);
         $tables=null;
         //processa as tabelas
-        foreach ($tablesRAW as $key => $value) {
-            if ($this->validColumn($value)) {
-                $content=file_get_contents($dir.$value);
+        foreach ($listaDeTabelas as $key => $nomeDaTabela) {
+            //verifica se o nome da tabela é valido
+            if ($this->validColumn($nomeDaTabela)) {
+                $content=file_get_contents($dir.$nomeDaTabela);
                 $content=explode(PHP_EOL, $content);
-                foreach ($content as $contentKey => $contentValue) {
-                    if (!$this->validColumn($contentValue)) {
+                $content=array_filter($content);
+                $content=array_values($content);
+                foreach ($content as $contentKey => $nomeDaColuna) {
+                    if (!$this->validColumn($nomeDaColuna)) {
+                        print '"'.$nomeDaColuna.'" é um nome de coluna inválido'.PHP_EOL;
                         unset($content[$contentKey]);
                     }
                 }
-                $content=array_filter($content);
-                $content=array_values($content);
-                $tables[$value]=$content;
+                $tables[$nomeDaTabela]=$content;
+            }else{
+                print '"'.$nomeDaTanomeDaTabelas.'" é um nome de tabela inválido'.PHP_EOL;
             }
         }
-        $tabelasNoBanco=$this->tables();
+        $tabelasNoBanco=$this->tabelasNoBanco();
         if ($tabelasNoBanco) {
             //exclusão de tabelas
             foreach ($tabelasNoBanco as $key => $tableName) {
                 //apaga as tabelas órfãs
                 if (!isset($tables[$tableName])) {
                     $this->deleteTable($tableName);
+                    unset($tabelasNoBanco[$key]);
                 }
-                unset($tabelasNoBanco[$key]);
             }
         }
         if(count($tabelasNoBanco)>0){
             //exclusão de colunas
-            foreach ($tabelasNoBanco as $keyTableInDB => $tableName) {
-                //le as colunas que já existe na tabelas
+            foreach ($tabelasNoBanco as $tableName) {
+                //le as colunas que já existe na tabela
                 $columnsInDB=$this->columns($tableName);
                 //apaga as colunas que estão sobrando
                 foreach ($columnsInDB as $keyColumnsInDB => $valueColumnInDB) {
@@ -78,6 +83,8 @@ class Migration
                     }
                 }
             }
+        }else{
+            print 'bug1'.PHP_EOL;
         }
         //criação de colunas
         foreach ($tables as $tableKey => $tableValues) {
@@ -94,7 +101,7 @@ class Migration
     }
     public function truncateAll()
     {
-        $tables=$this->tables();
+        $tables=$this->tabelasNoBanco();
         foreach ($tables as $table) {
             $sql="TRUNCATE $table;";
             $this->query($sql);
@@ -181,7 +188,11 @@ class Migration
         }
         arsort($files);
         $files = array_keys($files);
-        return ($files) ? $files : false;
+        if($files){
+            return $files;
+        }else{
+            return false;
+        }
     }
     public function query(string $sql)
     {
@@ -203,7 +214,7 @@ class Migration
             return false;
         }
     }
-    public function tables()
+    public function tabelasNoBanco()
     {
         $sql='SHOW TABLES';
         $result=$this->query($sql);
@@ -220,7 +231,7 @@ class Migration
     public function tableExists(string $tableName)
     {
         $tableName=trim($tableName);
-        $tables=$this->tables();
+        $tables=$this->tabelasNoBanco();
         if (@in_array($tableName, $tables)) {
             return true;
         } else {
