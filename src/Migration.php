@@ -51,13 +51,10 @@ class Migration
                 $content=array_values($content);
                 foreach ($content as $contentKey => $nomeDaColuna) {
                     if (!$this->validColumn($nomeDaColuna)) {
-                        print '"'.$nomeDaColuna.'" é um nome de coluna inválido'.PHP_EOL;
                         unset($content[$contentKey]);
                     }
                 }
                 $tables[$nomeDaTabela]=$content;
-            }else{
-                print '"'.$nomeDaTanomeDaTabelas.'" é um nome de tabela inválido'.PHP_EOL;
             }
         }
         $tabelasNoBanco=$this->tabelasNoBanco();
@@ -83,8 +80,6 @@ class Migration
                     }
                 }
             }
-        }else{
-            print 'bug1'.PHP_EOL;
         }
         //criação de colunas
         foreach ($tables as $tableKey => $tableValues) {
