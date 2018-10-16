@@ -29,7 +29,7 @@ class Migration
     }
     public function migrateAll($dir=false)
     {
-        //nome padrão da pasta com as tabelas
+        //nome padrão da pasta com as tabela
         $defaultDir=ROOT.'table/';
         if(!$dir){
             $dir=$defadefaultDir;
