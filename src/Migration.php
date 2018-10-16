@@ -141,7 +141,6 @@ class Migration
             if ($columnName=='id') {
                 $sql=$sql.'`'.$columnName.'` serial;';
             } else {
-                // ALTER TABLE `user` ADD `email` TEXT NOT NULL ;
                 $sql=$sql.'`'.$columnName.'` TEXT;';
             }
             if (!$this->columnExists($tableName, $columnName)) {
