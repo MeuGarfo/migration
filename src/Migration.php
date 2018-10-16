@@ -141,8 +141,8 @@ class Migration
             if ($columnName=='id') {
                 $sql=$sql.'`'.$columnName.'` serial;';
             } else {
-                // ALTER TABLE `user` ADD `email` LONGTEXT NOT NULL ;
-                $sql=$sql.'`'.$columnName.'` LONGTEXT;';
+                // ALTER TABLE `user` ADD `email` TEXT NOT NULL ;
+                $sql=$sql.'`'.$columnName.'` TEXT;';
             }
             if (!$this->columnExists($tableName, $columnName)) {
                 return $this->query($sql);
@@ -203,7 +203,7 @@ class Migration
         }
         if ($this->columnExists($tableName, $oldColumnName)) {
             $sql='ALTER TABLE `'.$tableName.'` CHANGE ';
-            $sql=$sql.'`'.$oldColumnName.'` `'.$create_columnName.'` longtext';
+            $sql=$sql.'`'.$oldColumnName.'` `'.$create_columnName.'` TEXT';
             return $this->query($sql);
         } else {
             return false;
